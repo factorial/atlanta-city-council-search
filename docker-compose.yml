@@ -1,0 +1,22 @@
+version: '3'
+services:
+  db:
+    image: postgres:10.11-alpine
+    environment:
+      POSTGRES_USER: atlcc
+      POSTGRES_PASSWORD: atlcc
+    ports:
+      - '5432:5432'
+  api:
+    build: .
+    image: atlcc:dev
+    environment:
+      PORT: 8080
+      DB_HOST: db
+      DB_USER: atlcc
+      DB_PASSWORD: atlcc
+      DB_NAME: atlcc
+    ports:
+      - '8080:8080'
+    depends_on:
+      - db
